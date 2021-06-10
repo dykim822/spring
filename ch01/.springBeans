@@ -14,6 +14,9 @@
 		<config>src/main/resources/beans08.xml</config>
 		<config>src/main/java/sample09/beans09.xml</config>
 		<config>src/main/java/sample10/beans10.xml</config>
+		<config>src/main/java/sample11/beans11.xml</config>
+		<config>src/main/java/sample12/beans12.xml</config>
+		<config>src/main/java/sample13/beans13.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
