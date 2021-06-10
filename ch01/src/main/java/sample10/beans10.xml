@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="out" class="sample10.FileOutput">
+		<!-- FileOutput.java에서 변수명 fileName과 property name명이 일치해야 한다! -->
+		<property name="fileName" value="test2.txt"></property>
+	</bean>
+	<bean id="vh" class="sample10.VehicleImpl">
+		<property name="name" value="철수"></property>
+		<property name="rider" value="비행기"></property>
+		<property name="out" ref="out"></property>
+	</bean>
+</beans>

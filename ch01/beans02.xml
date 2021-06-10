@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="vc" class="sample04.Taxi"></bean>
+	<bean id="mb" name="A" class="sample05.MessageBeanImpl">
+		<!-- 생성자로 매개변수 저장한다는 의미 xml에서 매개변수를 지정할 수 있다 -->
+		<constructor-arg><value>라라</value></constructor-arg>
+		<constructor-arg value="안녕하세요"></constructor-arg>
+	</bean>
+</beans>

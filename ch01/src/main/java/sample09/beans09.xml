@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="out" class="sample09.FileOutput">
+		<property name="fileName" value="test1.txt"></property>
+	</bean>
+	<!-- 문자는 value, 객체는 ref 이용 -->
+	<bean id="mb" class="sample09.MessageBeanImpl">
+		<property name="name" value="홍길동"></property>
+		<property name="greeting" value="Hello"></property>
+		<!-- Output 객체를 써야되므로 reference를 이용해야한다 -->
+		<property name="out1" ref="out"></property>
+	</bean>
+</beans>
