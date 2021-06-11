@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- list를 사용하면 value를 여러건 사용이 가능하다 -->
+	<bean id="lb" class="list.ListBean">
+		<property name="addr">
+			<list>
+				<value>서울</value>
+				<value>부산</value>
+				<value>인천</value>
+				<value>대전</value>
+				<value>대구</value>
+				<value>광주</value>
+				<value>울산</value>
+				<value>서울</value>
+			</list>
+		</property>
+	</bean>
+</beans>

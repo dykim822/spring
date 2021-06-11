@@ -17,6 +17,10 @@
 		<config>src/main/java/sample11/beans11.xml</config>
 		<config>src/main/java/sample12/beans12.xml</config>
 		<config>src/main/java/sample13/beans13.xml</config>
+		<config>src/main/java/sample14/beans14.xml</config>
+		<config>src/main/java/sample15/beans15.xml</config>
+		<config>src/main/java/list/list.xml</config>
+		<config>src/main/java/set/set.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
