@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="mb" class="sample02.MessageBeanImpl">
+		<property name="name" value="홍길동"></property>
+	</bean>
+	<bean id="la" class="sample02.LogAdvice"></bean>
+	<bean id="proxy"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<!-- mb; MessageBeanImpl을 실행할 때 가로채오겠다는 의미 -->
+		<property name="target" ref="mb" />
+		<property name="interceptorNames" value="advisor"></property>
+	</bean>
+	<bean id="advisor"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="la"></property>
+		<property name="pointcut">
+			<bean
+				class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+				<property name="pattern">
+					<value>.*sayHello.*</value>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+</beans>

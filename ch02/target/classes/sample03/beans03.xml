@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+	<bean id="mb" class="sample03.MessageBeanImpl">
+		<property name="name" value="홍길동"></property>
+	</bean>
+	<bean id="la" class="sample03.LogAdvice"></bean>
+	<aop:config>
+		<aop:aspect ref="la">
+			<aop:pointcut expression="execution(* sayHello())" id="pc"/>
+			<!-- LogAdvice에서 Object의 객체명이 같아야한다/ method => around -->
+			<aop:around method="around" pointcut-ref="pc"/>
+		</aop:aspect>
+	</aop:config>
+</beans>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="cb" class="sample01.CustromBeanPostProcessor"></bean>
+	<!-- init_method 본 메서드(sayHello())보다 먼저 실행할 메서드를 정의 -->
+	<bean id="mb" class="sample01.MessageBeanImpl" init-method="aa">
+		<property name="greeting" value="안녕하세요"></property>
+	</bean>
+
+</beans>
