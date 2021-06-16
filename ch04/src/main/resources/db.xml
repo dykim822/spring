@@ -5,14 +5,18 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 	<context:property-placeholder
-		location="db.properties" />
-	<bean id="jdbcTemplate"
-		class="org.springframework.jdbc.core.JdbcTemplate">
-		<constructor-arg ref="dataSource" />
-	</bean>
-	<bean
-		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-		<constructor-arg ref="dataSource" />
+		location="classpath:db.properties" />
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources" value="hib/model/Person.xml" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<!-- true; 생성해주는 sql 출력/ false; sql 출력x -->
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
 	</bean>
 	<!-- DB Connection Pool -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
@@ -25,5 +29,5 @@
 		destroy-method="close">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
 	</bean>
-	<context:component-scan base-package="member"></context:component-scan>
+	<context:component-scan base-package="hib"></context:component-scan>
 </beans>

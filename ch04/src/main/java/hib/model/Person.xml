@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<!-- key는 id로, key가 아닌 컬럼은 property -->
+	<class name="hib.model.Person" table="person">
+		<id name="id" column="id" type="java.lang.String"></id>
+		<property name="name" column="name" type="java.lang.String"></property>
+	</class>
+</hibernate-mapping>

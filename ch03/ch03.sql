@@ -25,3 +25,5 @@ password varchar2(10),
 name varchar2(20),
 regdate date 
 );
+
+select * from member3;
