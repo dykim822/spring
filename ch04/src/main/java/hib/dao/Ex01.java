@@ -24,18 +24,47 @@ public class Ex01 {
 			} else if(command.equals("1")) {
 				insert();
 			} else if(command.equals("2")) {
-				
+				select();
 			} else if(command.equals("3")) {
-				
+				update();
 			} else if(command.equals("4")) {
-				
+				delete();
 			} else if(command.equals("5")) {
-				
+				list();
 			}
 		}
 		sc.close();
 		ac.close();
 		System.out.println("프로그램 종료");
+	}
+	private static void delete() {
+		System.out.println("삭제할 아이디를 입력하세요");
+		String id = sc.nextLine();
+		int result = ps.delete(id);
+		if(result > 0) {
+			System.out.println("삭제 성공!");
+		}
+	}
+	private static void list() {
+		ps.list();
+	}
+	private static void update() {
+		System.out.println("수정할 아이디를 입력하세요");
+		String id = sc.nextLine();
+		System.out.println("이름을 입력하세요");
+		String name = sc.nextLine();
+		Person person = new Person();
+		person.setId(id);
+		person.setName(name);
+		int result = ps.update(person);
+		if(result > 0) {
+			System.out.println("수정 성공!");
+		}
+	}
+	private static void select() {
+		System.out.println("조회할 아이디를 입력하세요");
+		String id = sc.nextLine();
+		ps.select(id);
 	}
 	private static void insert() {
 		System.out.println("아이디를 입력하세요");
