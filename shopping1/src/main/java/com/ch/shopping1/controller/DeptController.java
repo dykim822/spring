@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-import com.ch.shopping1.DeptService;
 import com.ch.shopping1.model.Dept;
+import com.ch.shopping1.service.DeptService;
 
 public class DeptController implements Controller {
 	@Autowired

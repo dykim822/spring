@@ -5,8 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
-import com.ch.shopping1.ItemService;
+
 import com.ch.shopping1.model.Item;
+import com.ch.shopping1.service.ItemService;
 public class FruitController implements Controller {
 	@Autowired
 	private ItemService is;

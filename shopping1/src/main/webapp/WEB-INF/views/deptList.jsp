@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container" align="center">
-	<h2 class="text-primary">과일 목록</h2>
+	<h2 class="text-primary">부서 목록</h2>
 	<!-- table-hover는 마우스를 올려놓은 줄의 배경색을 회색으로 변경 -->
 	<table class="table table-bordered table-hover">
 		<tr>
