@@ -15,7 +15,11 @@
 	//location.href="guguForm";
 	//location.href="addrForm";
 	//location.href="memberForm";
-	location.href="calForm";
+	//location.href="calForm";
+	//location.href="mem1";
+	//location.href="mem1List";
+	//location.href="mem1.json";
+	location.href="mem1List.json";
 </script>
 </body>
 </html>
