@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- 원래 type명으로 써줘야하지만 별칭을 member로 설정 -->
+		<typeAlias alias="member" type="com.ch.mybatis.model.Member"/>
+	</typeAliases>
+	<!-- ③ 매퍼정보 설정 -->
+	<mappers>
+		<mapper resource="member.xml" />
+	</mappers>
+</configuration>

@@ -36,4 +36,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public void delete(int id) {
 		map.remove(id);
 	}
+	@Override
+	public void update(Customer customer) {
+		//현재값을 덮어서 수정
+		map.put(customer.getId(), customer);
+	}
 }

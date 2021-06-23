@@ -5,5 +5,6 @@ public interface CustomerService {
 	Collection<Customer> list();
 	Customer select(int id);
 	void delete(int id);
+	void update(Customer customer);
 
 }
