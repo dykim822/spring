@@ -4,8 +4,9 @@
  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<!-- 원래 type명으로 써줘야하지만 별칭을 member로 설정 -->
+		<!-- 원래 type명으로 써줘야하지만 별칭을 member로 설정하고 member로 사용하면 된다 -->
 		<typeAlias alias="member" type="com.ch.mybatis.model.Member"/>
+		<typeAlias alias="memberPhoto" type="com.ch.mybatis.model.MemberPhoto"/>
 	</typeAliases>
 	<!-- ③ 매퍼정보 설정 -->
 	<mappers>

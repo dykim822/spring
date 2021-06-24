@@ -8,10 +8,8 @@
 </head>
 <body>
 <script type="text/javascript">
-	//location.href="joinForm.do";
-	//location.href="main.do";
-	//main.do를 실행하면 servlet-context.xml에서 설정한 sessionChk때문에 main화면이 출력되지 않는다
-	location.href="joinForm2.do";
+	alert("로그아웃 처리 되었습니다");
+	location.href="loginForm.do";
 </script>
 </body>
 </html>
