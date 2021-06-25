@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="empns">
+	<resultMap type="emp" id="empResult">
+		<result property="empno" 	column="empno"/>
+		<result property="ename" 	column="ename"/>
+		<result property="job" 		column="job"/>
+		<result property="mgr" 		column="mgr"/>
+		<result property="hiredate" column="hiredate"/>
+		<result property="sal" 		column="sal"/>
+		<result property="comm" 	column="comm"/>
+		<result property="deptno" 	column="deptno"/>
+		<!-- 관리자 이름 -->
+		<result property="mgrName" 	column="mgrName"/>
+		<!-- 조인용 부서정보 전체 -->
+		<!-- 하단 resultMap태그의 deptResult를 가져다 쓴다 -->
+		<collection property="dept" resultMap="deptResult"></collection>
+	</resultMap>
+	<resultMap type="dept" id="deptResult">
+		<!-- 클래스에 있는 컬럼명이랑 table 컬럼명이랑 다를 때 사용한다/ 같을 경우에는 생략 가능 -->
+		<!-- property-> class 컬럼명/ column-> table 컬럼명 -->
+		<result property="deptno" 	column="deptno"/>
+		<result property="dname" 	column="dname"/>
+		<result property="loc" 		column="loc"/>
+	</resultMap>
+	<!-- <select id="list" parameterType="integer" resultMap="empResult"> -->
+	<select id="list" parameterType="integer" resultType="emp">	<!-- 해당부서 것만 -->
+		select * from emp where deptno=#{deptno} order by ename
+	</select>
+	<select id="select" parameterType="integer" resultType="emp">
+		select * from emp where empno=#{empno}
+	</select>
+	<select id="empList" parameterType="integer" resultType="emp">	<!-- 전체 부서 -->
+		select * from emp order by ename
+	</select>
+</mapper>
