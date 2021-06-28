@@ -34,4 +34,23 @@
 	<select id="empList" parameterType="integer" resultType="emp">	<!-- 전체 부서 -->
 		select * from emp order by ename
 	</select>
+	<insert id="insert" parameterType="emp">
+		insert into emp values (#{empno}, #{ename}, #{job}, #{mgr}, #{hiredate}, #{sal}, #{comm}, #{deptno})
+	</insert>
+	<update id="update" parameterType="emp">
+		update emp set ename=#{ename}, job=#{job}, mgr=#{mgr}, hiredate=#{hiredate},
+		sal=#{sal}, comm=#{comm}, deptno=#{deptno}
+		where empno=#{empno}
+	</update>
+	<delete id="delete" parameterType="integer">
+		delete from emp where empno=#{empno}
+	</delete>
+	<!-- <select id="allList" resultMap="empResult">
+		select e.*, d.* from emp e, dept d where e.deptno=d.deptno order by ename
+	</select> -->
+	<!-- selfjoin과 outerjoin(관리자(사장)까지 출력하기 위한 SQL -->
+	<select id="allList" resultMap="empResult">
+		select w.*, m.ename mgrName, d.* from emp m, emp w, dept d
+		where w.deptno=d.deptno and w.mgr=m.empno(+) order by w.ename
+	</select>
 </mapper>

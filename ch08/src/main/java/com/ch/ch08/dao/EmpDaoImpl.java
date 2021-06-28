@@ -23,5 +23,21 @@ public class EmpDaoImpl implements EmpDao {
 	public List<Emp> empList() {
 		return sst.selectList("empns.empList");
 	}
+	@Override
+	public int insert(Emp emp) {
+		return sst.insert("empns.insert", emp);
+	}
+	@Override
+	public int update(Emp emp) {
+		return sst.update("empns.update", emp);
+	}
+	@Override
+	public int delete(int empno) {
+		return sst.delete("empns.delete", empno);
+	}
+	@Override
+	public List<Emp> list() {
+		return sst.selectList("empns.allList");
+	}
 	
 }

@@ -46,7 +46,7 @@
 		</c:if>
 	</table>
 	<a class="btn btn-info" href="insertDeptForm.html">부서 정보 입력</a>
-	<a class="btn btn-default" href="allEmptList.html">전 직원 목록</a>
+	<a class="btn btn-default" href="allEmpList.html">전 직원 목록</a>
 </div>
 </body>
 </html>

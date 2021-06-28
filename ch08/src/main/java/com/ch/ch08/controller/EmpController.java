@@ -51,4 +51,49 @@ public class EmpController {
 		}
 		return data;
 	}
+	@RequestMapping("empInsert")
+	public String empInsert(Emp emp, Model model) {
+		int result = 0;
+		// emp는 화면에서 입력한 데이터/ emp2는 사번으로 DB에서 조회한 데이터
+		Emp emp2 = es.select(emp.getEmpno());
+		if(emp2 == null) {
+			result = es.insert(emp);
+		} else {
+			result = -1;	// 이미 존재하는 데이터이므로 입력 불가
+		}
+		model.addAttribute("result", result);
+		model.addAttribute("emp", emp);
+		return "/emp/empInsert";
+	}
+	@RequestMapping("empUpdateForm")
+	public String empUpdateForm(int empno, Model model) {
+		Emp emp = es.select(empno);		// 직원 조회용
+		List<Dept> deptList = ds.list();
+		List<Emp> empList = es.empList();
+		model.addAttribute("emp", emp);
+		model.addAttribute("deptList", deptList);
+		model.addAttribute("empList", empList);
+		return "/emp/empUpdateForm";
+	}
+	@RequestMapping("empUpdate")
+	public String empUpdate(Emp emp, Model model) {
+		int result = es.update(emp);
+		model.addAttribute("result", result);
+		model.addAttribute("emp", emp);
+		return "/emp/empUpdate";
+	}
+	@RequestMapping("empDelete")
+	public String empDelete(int empno, Model model) {
+		Emp emp = es.select(empno);
+		int result = es.delete(empno);
+		model.addAttribute("result", result);
+		model.addAttribute("emp", emp);
+		return "/emp/empDelete";
+	}
+	@RequestMapping("allEmpList")
+	public String allEmpList(Model model) {
+		List<Emp> list = es.list();
+		model.addAttribute("list", list);
+		return "/emp/allEmpList";
+	}
 }

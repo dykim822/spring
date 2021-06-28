@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardns">
+	<select id="list" resultType="board">
+		select * from (select a.*, rowNum rn from (select * from board order by ref desc, re_step) a)
+		where rn between #{startRow} and #{endRow}
+	</select>
+	<select id="getTotal" resultType="integer">
+		select count(*) from board	<!-- 행의 갯수 = 게시글 갯수 -->
+	</select>
+	<select id="getMaxNum" resultType="integer">
+		select nvl(max(num), 0) + 1 from board
+	</select>
+	<insert id="insert" parameterType="board">
+		insert into board values (#{num}, #{writer}, #{subject}, #{content}, #{email},
+			0, #{password}, #{ref}, #{re_step}, #{re_level}, #{ip},	sysdate, 'n')
+	</insert>
+</mapper>

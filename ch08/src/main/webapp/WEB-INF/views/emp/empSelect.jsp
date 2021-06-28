@@ -8,8 +8,16 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(function () {
-		$('#empList').load("empList.html", "deptno=${emp.deptno}")
+		$('#empList').load("empList.html table", "deptno=${emp.deptno}")
 	});
+	function del(empno) {
+		var cf = confirm("정말로 삭.제 .하시겠습니까?");
+		if(cf) {
+			location.href="empDelete.html?empno="+empno;	// +a;
+		} else {
+			alert("삭제가 취소되었습니다");
+		}
+	}
 </script>
 </head>
 <body>
@@ -43,7 +51,7 @@
 		<tr>
 			<td colspan="4" align="center">
 				<a href="empList.html?deptno=${emp.deptno }" class="btn btn-info">직원 목록</a>
-				<a href="empUpdateForm.html?emp=${emp.empno }" class="btn btn-warning">수정</a>
+				<a href="empUpdateForm.html?empno=${emp.empno }" class="btn btn-warning">수정</a>
 				<a onclick="del(${emp.empno})" class="btn btn-danger">삭제</a>
 				<a href="deptList.html" class="btn btn-success">부서 목록</a>
 			</td>

@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container" align="center">
-	<h2 class="text-primary">부서정보 입력</h2>
+	<h2 class="text-primary">부서정보 수정</h2>
 	<form action="deptUpdate.html" name="frm" method="post">
 		<%-- <input type="hidden" name="deptno" value="${dept.deptno }"> hidden을 더 권장 --%> 
 		<table class="table table-striped table-bordered">
