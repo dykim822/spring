@@ -2,12 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardns">
-	<select id="list" resultType="board">
+	<!-- <select id="list" parameterType="map" resultType="board">
 		select * from (select a.*, rowNum rn from (select * from board order by ref desc, re_step) a)
 		where rn between #{startRow} and #{endRow}
+	</select> -->
+	<!-- where; table로 추출하는 조건 / 사용할수도 있고 사용하지 않을수도 있다 / where tag에 값이 있으면 사용하고 없으면 사용x -->
+	<select id="list" parameterType="board" resultType="board">
+		select * from (select a.*, rowNum rn from (select * from board
+			<where>
+				<!-- keyword에 값이 있으면 where속에 like옵션을 사용 
+					${}는 변수, #{}은 값-->
+				<if test="keyword!=null and keyword!=''">
+					<!-- ex) subject like '%비%' -->
+					<if test="search=='subcon'">
+						subject like '%' || #{keyword} || '%' or
+						content like '%' || #{keyword} || '%'
+					</if>
+					<if test="search!='subcon'">
+						${search} like '%' || #{keyword} || '%'
+					</if>
+				</if>
+			</where>
+			order by ref desc, re_step) a)
+			where rn between #{startRow} and #{endRow}
 	</select>
-	<select id="getTotal" resultType="integer">
+<!-- 	<select id="getTotal" resultType="integer">
+		select count(*) from board	행의 갯수 = 게시글 갯수
+	</select> -->
+	<select id="getTotal" parameterType="board" resultType="integer">
 		select count(*) from board	<!-- 행의 갯수 = 게시글 갯수 -->
+			<where>
+				<!-- keyword에 값이 있으면 whre속에 like옵션을 사용 
+					${}변수 #{}은 값 -->
+				<if test="keyword!=null and keyword!=''">
+					<if test="search=='subcon'">
+						subject like '%'||#{keyword}||'%' or
+						content like '%'||#{keyword}||'%'
+					</if>
+					<if test="search!='subcon'">
+						<!-- subject like '%'||'비'||'%' -->
+						${search} like '%'||#{keyword}||'%'
+					</if>					
+				</if>
+			</where>
 	</select>
 	<select id="getMaxNum" resultType="integer">
 		select nvl(max(num), 0) + 1 from board
@@ -16,4 +53,21 @@
 		insert into board values (#{num}, #{writer}, #{subject}, #{content}, #{email},
 			0, #{password}, #{ref}, #{re_step}, #{re_level}, #{ip},	sysdate, 'n')
 	</insert>
+	<update id="updateReadCount" parameterType="integer">
+		update board set readcount = readcount + 1 where num=#{num}
+	</update>
+	<select id="select" parameterType="integer" resultType="board">
+		select * from board where num=#{num}	
+	</select>
+	<update id="update" parameterType="board">
+		update board set subject=#{subject}, writer=#{writer}, content=#{content}, email=#{email}
+		where num=#{num}
+	</update>
+	<update id="delete" parameterType="integer">
+		update board set del='y' where num=#{num}
+	</update>
+	<update id="updateStep" parameterType="board">
+		update board set re_step = re_step + 1
+		where ref=#{ref} and re_step > #{re_step}
+	</update>
 </mapper>

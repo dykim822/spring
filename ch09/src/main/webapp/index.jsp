@@ -8,7 +8,10 @@
 </head>
 <body>
 	<script type="text/javascript">
-		location.href = "list.do";
+		//location.href = "list.do";	// 게시판
+		//location.href = "mailForm.do";	// 이메일 보내기
+		//location.href = "jsonBoard.do";	// rawdata
+		location.href = "json.do";
 	</script>
 </body>
 </html>
