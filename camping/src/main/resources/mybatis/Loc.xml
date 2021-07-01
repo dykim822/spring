@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">	
+<mapper namespace="Loc">
+	<resultMap  type="loc"			id="locResult">
+		<result property="locCode"  	column="locCode"/>
+		<result property="locName" 		column="locName"/>
+		<result property="locUrl" 		column="locUrl"/>	
+	</resultMap>	
+	<select id="selectLocName" parameterType="Integer" resultType="String">
+		<![CDATA[ SELECT locName FROM LOC WHERE LOCCODE=#{locCode}]]>
+	</select>	
+	<select id="selectLocPicUrl" parameterType="Integer" resultType="String">
+		<![CDATA[ SELECT locUrl FROM LOC WHERE LOCCODE=#{locCode}]]>
+	</select>	
+	<select id="locList" resultMap="locResult">
+		select * from loc order by locCode
+	</select>
+</mapper>

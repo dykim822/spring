@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="Product">
+	<resultMap  type="product" 			id="ResultMap">
+		<result property="pId" 	  		column="pId"/>
+		<result property="pName"	 	column="pName"/>
+		<result property="price"   	 	column="price"/>
+		<result property="description"  column="description"/>
+		<result property="picUrl" 		column="picUrl" />
+		<result property="rangeCode"	column="rangeCode"/>
+		<result property="mdCode"   	column="mdCode"/>
+		<result property="voteCode" 	column="voteCode"/>
+		<result property="hit" 			column="hit" />
+		<result property="regdate" 		column="regdate" />
+		<result property="quantity" 	column="quantity" />
+	</resultMap>		
+	<select id="getTotalProduct" resultType="integer">
+		SELECT COUNT(*) FROM PRODUCT
+	</select>	
+	<select id="productList" resultMap="ResultMap" parameterType="integer" >	
+		SELECT * FROM 
+				(SELECT ROWNUM RN, N.* FROM 
+					(SELECT * FROM PRODUCT ORDER BY REGDATE DESC) N
+				) WHERE RN BETWEEN 1 + (#{start}-1)*10 AND 10 + (#{start}-1)*10
+	</select>	
+	<select id="productListbyHit" resultMap="ResultMap" >		
+		SELECT * FROM PRODUCT ORDER BY HIT DESC
+	</select>	
+	<select id="selectProductbymdCode" parameterType="integer" resultMap="ResultMap">
+		SELECT * FROM PRODUCT WHERE MDCODE=#{mdCode}
+	</select>	
+	<select id="selectProduct" parameterType="integer" resultType="product">
+		SELECT * FROM PRODUCT WHERE PID=#{pId}
+	</select>		
+	<insert id="insertProduct" parameterType="product">
+		<selectKey keyProperty="pId" resultType="integer"  order="BEFORE">
+			SELECT NVL(MAX(PID),0)+1 FROM PRODUCT
+		</selectKey>
+		INSERT INTO PRODUCT(PID, PNAME, PRICE, DESCRIPTION, PICURL, RANGECODE, 
+					MDCODE,	VOTECODE, HIT, REGDATE,quantity) 
+				VALUES(#{pId}, #{pName}, #{price}, #{description}, #{picUrl}, #{rangeCode}, 
+				#{mdCode}, 0, 0, sysdate,#{quantity})
+	</insert>	
+	<update id="updateProduct" parameterType="product">
+		UPDATE PRODUCT SET 
+					PNAME=#{pName}, PRICE=#{price}, DESCRIPTION=#{description}, 
+					<if test="picUrl != null">
+						PICURL=#{picUrl},
+					</if>					
+					 RANGECODE=#{rangeCode}, MDCODE=#{mdCode},quantity=#{quantity}					
+					WHERE PID=#{pId}
+	</update>		
+	<delete id="deleteProduct" parameterType="integer">
+		DELETE FROM PRODUCT WHERE PID=#{pId} 
+	</delete>	
+	<update id="hitUpdateProduct" parameterType="integer">
+		UPDATE PRODUCT SET hit = hit + 1 WHERE PID=#{pId}
+	</update>	
+	<update id="voteCodeUpdateProduct" parameterType="integer">
+		<![CDATA[ UPDATE PRODUCT SET VOTECODE = voteCode + 1 WHERE PID=#{pId} ]]>
+	</update>	
+</mapper>

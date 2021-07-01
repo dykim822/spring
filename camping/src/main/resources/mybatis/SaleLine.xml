@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SaleLine">
+	<resultMap type="saleline"			id="ResulSaleLinetMap">
+		<result property="saleId" 		column="saleId" />
+		<result property="salelineId" 	column="salelineId" />
+		<result property="pId" 			column="pId" />
+		<result property="quantity" 	column="quantity" />
+		<result property="updateTime" 	column="updateTime" />
+	</resultMap>	
+	<select id="saleLineList" resultMap="ResulSaleLinetMap">
+		<![CDATA[ select * from saleline  ]]>
+	</select>	
+	<select id="selectSaleLine" parameterType="int" resultType="saleline">
+		<![CDATA[ select * from saleline where  salelineId = #{salelineId} ]]>
+	</select>	
+	<select id="getSaleLIneTotal" resultType="int">
+		select count(*) from saleline
+	</select>	
+	<insert id="insertSaleLine" parameterType="saleline">
+		<selectKey keyProperty="saleLineId" resultType="int" order="BEFORE">
+			select nvl(max(saleLineId),0) + 1 saleLineId from saleline
+		</selectKey>
+		insert into saleline(saleId, salelineId, pId, quantity, updateTime) 
+			 values(#{saleId}, #{saleLineId}, #{pId}, #{quantity}, sysdate) 
+	</insert>	
+	<delete id="deleteSaleLine" parameterType="Integer">
+		<![CDATA[ delete from saleline where salelineId = #{salelineId} ]]>
+	</delete>	
+	<update id="updateSaleLine" parameterType="saleline">
+		<![CDATA[ update saleline set saleId=#{saleId}, salelineId=#{salelineId}, pId=#{pId},
+			 quantity=quantity where salelineId=#{salelineId} ]]>
+	</update>
+</mapper>

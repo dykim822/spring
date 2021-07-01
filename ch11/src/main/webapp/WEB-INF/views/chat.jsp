@@ -24,23 +24,30 @@
 		$('#sendBtn').click(function() {
 			send();
 		});
-		$('#message').click(function() {
-			
+		//$('#message').click(function() {	// 엔터키를 누르면 전송되지 않는다
+		$('#message').keypress(function() {
+			// 누른키가 asci값	  IE이면?			IE key값		IE아닌 key
+			var keycode = event.keyCode?event.ktyCode:event.which;
+			if(keycode == 13) {
+				send();
+			}
 		});
 	});
 	function connect() {
 		//							server ip			servlet-context에 등록된 이름
 		websocket = new WebSocket("ws://172.30.1.44/ch11/chat-ws.do");
 		
-		websocket.onOpen = Open;
+		websocket.onopen = Open;
 		websocket.onmessage = onMessage;
 		websocker.onclose onClose;
 	}
 	function disconnect() {
-		
+		websocket.close();
 	}
 	function send() {
-		
+		var msg = $('#message').val();	//	입력한 문자 갖고 오기
+		websocket.send(nickname+"=> " + msg);	// 메세지를 별명과 함께 보내기
+		$('#message').val("");	// 메세지에 입력한 글 지우기
 	}
 	function Open() {
 		nickname = $('#nickname').val();	// 별명 가져오기
@@ -54,7 +61,10 @@
 		appendMessage(nickname+"님이 퇴장하였습니다");
 	}
 	function appendMessage(msg) {
-		$('#chatMessage').append(msg+"<br>")
+		$('#chatMessage').append(msg+"<br>");
+		// 채팅창에 글이 꽉 찼을 경우에 최신 글이 하단에 보이게 하는 기능
+		var objDiv = document.getElementById("chatMessage");
+		objDiv.scrollTop = objDiv.scrollHeight;
 	}
 </script>
 </head>

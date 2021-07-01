@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ShortBoard">
+	<resultMap  type="shortboard"		id="ResultMap">
+		<result property="pId"  		column="pId"/>
+		<result property="writer" 		column="writer"/>
+		<result property="sbId" 		column="sbId"/>
+		<result property="content"		column="content"/>
+		<result property="regdate"  	column="regdate"/>		
+	</resultMap>	
+	<select id="shortBoardList" resultMap="ResultMap">
+		<![CDATA[ select * from shortboard order by sbId desc ]]>
+	</select>	
+	<select id="selectShortBoardbypId" parameterType="int" resultType="shortboard">
+		<![CDATA[ select * from shortboard where pId = #{pId} ]]>
+	</select>	
+	<select id="getTotalShortBoard" resultType="int">
+		 select count(*) from shortboard 
+	</select>	
+	<insert id="insertShortBoard" parameterType="shortboard">
+		<selectKey keyProperty="sbId" resultType="int"  order="BEFORE">
+			select nvl(max(sbId),0) + 1 from shortboard
+		</selectKey>
+		<![CDATA[ insert into shortboard(pId, writer, sbId, content, regdate) 
+			 values(#{pId}, #{writer}, #{sbId}, #{content},  sysdate) ]]>
+	</insert>	
+	<delete id="deleteShortBoard" parameterType="int">
+		<![CDATA[ delete from shortboard where sbId = #{sbId} ]]>
+	</delete>	
+	<update id="updateShortBoard" parameterType="shortboard">
+		<![CDATA[ update shortboard set writer=#{writer}, content=#{content}, regdate=sysdate
+					where sbId=#{sbId} ]]>
+	</update>
+</mapper>

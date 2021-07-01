@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board">
+	<resultMap  type="board" id="ResultMap">
+		<result property="bId" 	 		column="bId"/>
+		<result property="writer" 		column="writer"/>
+		<result property="title" 		column="title"/>
+		<result property="content"		column="content"/>
+		<result property="regdate"  	column="regdate"/>
+		<result property="hit" 			column="hit"/>
+		<result property="bCode" 		column="bCode"/>		
+	</resultMap>	
+	<select id="Boardlist" parameterType="board" resultMap="ResultMap" >		
+		SELECT * FROM (SELECT ROWNUM RN, N.* FROM 
+			(SELECT * FROM BOARD5
+			<where>						
+			    <if test="query!=null">
+     				${search} like '%'||#{query}||'%'
+     			</if>		     	
+     		</where>
+				 ORDER BY BID DESC) N
+			)
+			WHERE RN BETWEEN 1 + (#{start}-1)*10 AND 10 + (#{start}-1)*10						
+	</select>
+	<select id="selectBoard" parameterType="int" resultType="board">
+		<![CDATA[ select * from board5 where  bId = #{bId} ]]>
+	</select>	
+	<select id="selectBoardByDate"  resultMap="ResultMap">
+		select * from board5 order by regdate desc 
+	</select>	
+	<select id="getTotalBoard" parameterType="board" resultType="int">
+		 select count(*) from board5 
+		 <if test="query!=null">
+			 <where>     		
+     			${search} like '%'||#{query}||'%'     		
+     		</where>
+     	</if>
+	</select>	
+	<select id="selectBoardBybCode" parameterType="Board" resultMap="ResultMap">
+		SELECT * FROM (SELECT ROWNUM RN, N.* FROM 
+			(SELECT * FROM BOARD5  where bCode=#{bCode}
+					 ORDER BY BID DESC) N
+			)
+			WHERE RN BETWEEN 1 + (#{start}-1)*10 AND 10 + (#{start}-1)*10
+	</select>	
+	<select id="totalBoardBybCode" parameterType="Board" resultType="int">
+		 select count(*) from board5  where bCode=#{bCode}
+	</select>
+	<insert id="insertBoard" parameterType="board">
+		<selectKey keyProperty="bId" resultType="Integer" 
+				order="BEFORE">
+			SELECT NVL(MAX(BID),0) + 1 FROM BOARD5
+		</selectKey>
+		INSERT INTO BOARD5(BID, WRITER, TITLE, CONTENT, REGDATE, HIT, BCODE)
+			values(#{bId}, #{writer}, #{title}, #{content},
+			 sysdate, 0, #{bCode})
+	</insert>	
+	<delete id="deleteBoard" parameterType="int">
+		delete from board5 where bId = #{bId} 
+	</delete>	
+	<update id="updateBoard" parameterType="board">
+		<![CDATA[ update board5 set writer=#{writer}, title=#{title},
+			 content=#{content}, regdate=sysdate, bCode=#{bCode}
+					where bId=#{bId} ]]>
+	</update>	
+	<update id="hitUpdateBoard" parameterType="int">
+		<![CDATA[ update board5 set hit = hit+1 where bId=#{bId} ]]>
+	</update>
+</mapper>

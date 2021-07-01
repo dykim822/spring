@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Sale">
+	<resultMap type="sale"				id="ResultMap">
+		<result property="saleId" 		column="saleId" />
+		<result property="mId" 			column="mId" />
+		<result property="updateTime" 	column="updateTime" />
+	</resultMap>	
+	<select id="saleList" resultMap="ResultMap">
+		<![CDATA[ SELECT * FROM SALE  ]]>
+	</select>	
+	<select id="selectSale" parameterType="int" resultType="sale">
+		<![CDATA[ SELECT * FROM SALE WHERE SALEID=#{saleId}]]>
+	</select>	
+	<select id="selectMaxSale" resultType="Integer">
+		SELECT MAX(SALEID) AS SALEID FROM SALE
+	</select>	
+	<select id="getTotalSale" resultType="int">
+		SELECT COUNT(*) FROM SALE
+	</select>	
+	<insert id="insertSale" parameterType="sale">
+		<selectKey keyProperty="saleId" resultType="int" order="BEFORE">
+			select nvl(max(saleId),0) + 1 saleId FROM SALE
+		</selectKey>
+		INSERT INTO SALE(saleId, MID, UPDATETIME) VALUES(#{saleId}, #{mId}, sysdate)
+	</insert>	
+</mapper>
