@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+	<context:property-placeholder
+		location="classpath:db.properties" />
+	<bean id="jpaDialect"	class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaDialect" ref="jpaDialect" />
+	</bean>
+	<!-- 5. JPA 예외 추상화 AOP 설정 -->
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	<!-- 6. 엔티티매니저팩토리 설정 -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.ch.ch16" /> <!-- @Entity 탐색 시작 위치 -->
+		<property name="jpaVendorAdapter">
+			<!-- 하이버네이트 구현체 사용 -->
+			<bean
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties"> <!-- 하이버네이트 상세 설정 -->
+			<props>
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop> --> <!-- 방언 -->
+				<prop key="hibernate.show_sql">false</prop> <!-- SQL 보기 -->
+				<!-- <prop key="hibernate.format_sql">true</prop> --> <!-- SQL 정렬해서 보기 -->
+				<!-- <prop key="hibernate.use_sql_comments">true</prop> --> <!-- SQL 코멘트 보기 -->
+				<!-- <prop key="hibernate.id.new_generator_mappings">true</prop> --> <!-- 새 버전의 ID 생성 옵션 -->
+				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> --> <!-- DDL 자동 생성 -->
+			</props>
+		</property>
+	</bean>
+	<!-- DataBase Connection Pool -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="${driver}" />
+		<property name="jdbcUrl" value="${url}" />
+		<property name="username" value="${userId}" />
+		<property name="password" value="${password}" />
+	</bean>
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig"></constructor-arg>
+	</bean>
+</beans>
