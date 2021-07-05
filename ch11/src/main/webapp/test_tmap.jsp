@@ -9,8 +9,10 @@
 <script
 	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xxb7514833e4e14e1492e2da0675e6772f"></script>
 <script type="text/javascript">
-	var map;
+	var map,marker;
 	var markerInfo;
+	var markers = [];
+	var lonlat;
 	//출발지,도착지 마커
 	var marker_s, marker_e, marker_p;
 	//경로그림정보
@@ -24,7 +26,7 @@
 	function initTmap() {
 		// 1. 지도 띄우기
 		map = new Tmapv2.Map("map_div", {
-			center : new Tmapv2.LatLng(37.49241689559544, 127.03171389453507),
+			center : new Tmapv2.LatLng(37.548604, 126.928293),
 			width : "100%",
 			height : "400px",
 			zoom : 11,
@@ -36,8 +38,7 @@
 		// 시작
 		marker_s = new Tmapv2.Marker(
 				{
-					position : new Tmapv2.LatLng(37.566567545861645,
-							126.9850380932383),
+					position : new Tmapv2.LatLng(37.548604, 126.928293),
 					icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
 					iconSize : new Tmapv2.Size(24, 38),
 					map : map

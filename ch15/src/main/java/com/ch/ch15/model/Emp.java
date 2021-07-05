@@ -1,4 +1,4 @@
-package com.ch.ch14.model;
+package com.ch.ch15.model;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -12,9 +12,7 @@ import lombok.Data;
 @Entity
 @Table(name = "emp")
 public class Emp {
-	// hibernate or JPA에서 숫자부분에 null이 있으면 에러
-	// Interger형은 정상처리가 가능하다
-	// 정수형은 값이 없는 변수들은 무조건 0으로 지정해야 한다. Null로 처리하면 X
+//	hibernate 또는 JPA에서 숫자부분에 null이 있으면 에러이고 Integer가 정상처리 됨
 	private int empno;
 	private String ename;
 	private String job;
@@ -23,18 +21,18 @@ public class Emp {
 	private int sal;
 	private Integer comm;
 	private int deptno;
-	// 관리자 이름(원하는 데이터 추가 가능)
+	// 관리자 이름
 	private String mgrName;
 	// join용
 	private Dept dept;
-	@Id	// id가 primary key
+	
+	@Id // pk
 	@Column(name = "empno")
-	public int getEmpo() {
+	public int getEmpno() {
 		return empno;
 	}
-	@ManyToOne
-	@JoinColumn(name = "deptno", referencedColumnName = "deptno",
-			insertable = false, updatable = false)
+	@ManyToOne    // Emp Data여러건에 Dept 데이터 한 건
+	@JoinColumn(name = "deptno")
 	public Dept getDept() {
 		return dept;
 	}

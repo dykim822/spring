@@ -1,12 +1,12 @@
-package com.ch.ch14.service;
+package com.ch.ch15.service;
 import java.util.List;
 
-import com.ch.ch14.model.Dept;
+import com.ch.ch15.model.Dept;
 public interface DeptService {
 	List<Dept> list();
 	Dept select(int deptno);
-	Dept insert(Dept dept);
-	Dept update(Dept dept);
+	int insert(Dept dept);
+	int update(Dept dept);
 	int delete(int deptno);
 
 }

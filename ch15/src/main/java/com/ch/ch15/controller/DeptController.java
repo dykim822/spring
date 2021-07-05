@@ -1,4 +1,4 @@
-package com.ch.ch14.controller;
+package com.ch.ch15.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ch.ch14.model.Dept;
-import com.ch.ch14.service.DeptService;
+import com.ch.ch15.model.Dept;
+import com.ch.ch15.service.DeptService;
 @Controller
 public class DeptController {
 	@Autowired
@@ -41,10 +41,7 @@ public class DeptController {
 		int result = 0;
 		Dept dept2 = ds.select(dept.getDeptno());
 		if(dept2 == null) {
-			Dept dt = ds.insert(dept);
-			if(dt != null) {
-				result = -1;
-			}
+			result = ds.insert(dept);
 		} else {
 			result = -1;	// 중복 데이터 입력
 		}
@@ -59,7 +56,7 @@ public class DeptController {
 	}
 	@RequestMapping("deptUpdate")
 	public String deptUpdate(Dept dept, Model model) {
-		Dept result = ds.update(dept);
+		int result = ds.update(dept);
 		model.addAttribute("result", result);
 		return "/dept/deptUpdate";
 	}

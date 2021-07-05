@@ -8,13 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:if test="${result != 0 }">
+<c:if test="${result > 0 }">
 	<script type="text/javascript">
-		alert("수정이 완료되었습니다");
-		location.href="deptList.html";
+		alert("수정되었습니다");
+		location.href="empSelect.html?empno=${emp.empno}";
 	</script>
 </c:if>
-<c:if test="${result == null }">
+<c:if test="${result == 0 }">
 	<script type="text/javascript">
 		alert("수정에 실패하였습니다");
 		history.back();

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.ch.ch15.model.Emp" table="emp">
+		<id name="empno" column="empno" type="java.lang.Integer"/>
+		<property name="ename" column="ename" type="java.lang.String"/>
+		<property name="job" column="job" type="java.lang.String"/>
+		<property name="mgr" column="mgr" type="java.lang.Integer"/>
+		<property name="hiredate" column="hiredate" type="java.sql.Date"/>
+		<property name="sal" column="sal" type="java.lang.Integer"/>
+		<property name="comm" column="comm" type="java.lang.Integer"/>
+		<property name="deptno" column="deptno" type="java.lang.Integer"/>
+		<many-to-one name="dept" column="deptno" 
+		class="com.ch.ch15.model.Dept" insert="false" update="false"/>
+	</class>
+</hibernate-mapping>

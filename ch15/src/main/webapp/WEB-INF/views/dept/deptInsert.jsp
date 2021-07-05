@@ -8,15 +8,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:if test="${result != 0 }">
+<c:if test="${result > 0 }">
 	<script type="text/javascript">
-		alert("수정이 완료되었습니다");
+		alert("입력에 성공하였습니다");
 		location.href="deptList.html";
 	</script>
 </c:if>
-<c:if test="${result == null }">
+<c:if test="${result == 0 }">
 	<script type="text/javascript">
-		alert("수정에 실패하였습니다");
+		alert("입력에 실패하였습니다");
+		history.back();
+	</script>
+</c:if>
+<c:if test="${result == -1 }">
+	<script type="text/javascript">
+		alert("이미 존재하는 부서입니다");
 		history.back();
 	</script>
 </c:if>
